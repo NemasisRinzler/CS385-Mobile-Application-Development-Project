@@ -1,7 +1,8 @@
 import './App.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
+import ProgressPage from "./pages/progress/ProgressPage.jsx";
 import HomePage from "./pages/home/HomePage";
 
 export default function App() {
