@@ -1,4 +1,4 @@
-export default function progressTree({ xp }) {
+export default function ProgressTree({ xp }) {
   let stage = "seedling";
 
   if (xp >= 101) stage = "tree";

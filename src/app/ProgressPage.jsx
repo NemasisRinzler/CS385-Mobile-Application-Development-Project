@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
-import missionCard from ".pages/progress/missionCard";
-import badgeDisplay from ".pages/progress/badgeDisplay";
-import progressTree from ".pages/progress/progressTree";
-import { missions } from ".store/missions";
-import { saveProgress, loadProgress } from ".store/storage";
+import { useNavigate } from "react-router-dom";
+import MissionCard from "../components/MissionCard";
+import BadgeDisplay from "../components/BadgeDisplay";
+import ProgressTree from "../components/ProgressTree";
+import { missions } from "../stores/missions";
+import { saveProgress, loadProgress } from "../stores/storage";
 
 export default function ProgressPage() {
   const [completed, setCompleted] = useState([]);
   const [xp, setXp] = useState(0);
+  const navigate = useNavigate();
+
+  const handleHome = () => {
+    navigate("/HomePage");
+  };
 
   // Load saved progress on mount
   useEffect(() => {
@@ -38,6 +44,10 @@ export default function ProgressPage() {
         <p className="mt-2 font-semibold text-green-600">XP: {xp}</p>
         <BadgeDisplay xp={xp} />
         <ProgressTree xp={xp} />
+
+          <button onClick={handleHome} style={{ padding: "8px 14px", marginTop: "20px" }}>
+            Home
+        </button>
       </header>
 
       {missions.map((mission) => (

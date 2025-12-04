@@ -4,7 +4,7 @@ const badges = [
   { name: "Bronze", min: 0, emoji: "🌱", label: "Beginner Eco Hero" },
 ];
 
-export default function badgeDisplay({ xp }) {
+export default function BadgeDisplay({ xp }) {
   // find the highest badge that fits current XP
   const badge = badges.find((b) => xp >= b.min);
 

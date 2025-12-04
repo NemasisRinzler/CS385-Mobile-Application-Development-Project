@@ -1,4 +1,4 @@
-export default function missionCard({ mission, completed, onComplete }) {
+export default function MissionCard({ mission, completed, onComplete }) {
   return (
     <div className="p-4 rounded-lg shadow bg-white flex justify-between items-center">
       <div>

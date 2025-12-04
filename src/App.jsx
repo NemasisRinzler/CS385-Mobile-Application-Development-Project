@@ -1,9 +1,9 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import LoginPage from "./pages/login/LoginPage";
-import ProgressPage from "./pages/progress/ProgressPage.jsx";
-import HomePage from "./pages/home/HomePage";
+import LoginPage from "./app/LoginPage";
+import HomePage from "./app/HomePage";
+import ProgressPage from "./app/ProgressPage";
 
 export default function App() {
   // java Main method equivilent - back end of display logic
@@ -24,7 +24,10 @@ export default function App() {
           {/* Login Page */}
           <Route path="/LoginPage" element={<LoginPage setUser={setUser} />} />
 
-          {/* Proteceted Home Page */}
+          {/* Progress Page */}
+          <Route path="/ProgressPage" element={<ProgressPage user={user} />} />
+
+          {/* Protected Home Page */}
           <Route path="/HomePage" element={
             user ? (
               <HomePage user={user} setUser={setUser} />

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { accountData } from "../../store/AccountData.js"; // Account Dummy data in Accounts.js
+import { accountData } from ".././stores/AccountData.js"; // Account Dummy data in Accounts.js
 
 export default function LoginPage({ setUser }) {
   // java Main method equivilent
