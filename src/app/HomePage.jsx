@@ -14,7 +14,11 @@ export default function HomePage({ user, setUser }) {
 
     const handleProgress = () => {
         navigate("/ProgressPage");
-    }
+    };
+
+    const handleAccount = () => {
+        navigate("/AccountPage");
+    };
 
     return (
     <div style={{ textAlign: "center", marginTop: "50px", fontFamily: "sans-serif" }}> 
@@ -26,6 +30,10 @@ export default function HomePage({ user, setUser }) {
 
         <button onClick={handleProgress} style={{ padding: "8px 14px", marginTop: "20px" }}>
             Progress
+        </button>
+
+        <button onClick={handleAccount} style={{ padding: "8px 14px", marginTop: "20px" }}>
+            Account
         </button>
     </div>
     );

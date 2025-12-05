@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./app/LoginPage";
 import HomePage from "./app/HomePage";
 import ProgressPage from "./app/ProgressPage";
+import AccountPage from "./app/AccountPage";
 
 export default function App() {
   // java Main method equivilent - back end of display logic
@@ -26,6 +27,15 @@ export default function App() {
 
           {/* Progress Page */}
           <Route path="/ProgressPage" element={<ProgressPage user={user} />} />
+
+          {/* Account Page */}
+          <Route path="/AccountPage" element={
+            user ? (
+              <AccountPage user={user} />
+            ) : (
+            <Navigate to="/LoginPage" />
+            )
+          } />
 
           {/* Protected Home Page */}
           <Route path="/HomePage" element={

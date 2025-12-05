@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import MissionCard from "../components/MissionCard";
 import BadgeDisplay from "../components/BadgeDisplay";
@@ -6,10 +6,18 @@ import ProgressTree from "../components/ProgressTree";
 import { missions } from "../stores/missions";
 import { saveProgress, loadProgress } from "../stores/storage";
 
-export default function ProgressPage() {
-  const [completed, setCompleted] = useState([]);
-  const [xp, setXp] = useState(0);
-  const navigate = useNavigate();
+export default function ProgressPage() {  // ProgressPage component
+  const [completed, setCompleted] = useState(() => {
+    const saved = loadProgress();
+    return saved ? saved.completed : [];
+  });
+  
+  const [xp, setXp] = useState(() => {  // Lazy load initial XP
+    const saved = loadProgress();
+    return saved ? saved.xp : 0;
+  });
+  const navigate = useNavigate(); //navigate hook
+  const isInitialMount = useRef(true);  // Ref to track initial mount
 
   const handleHome = () => {
     navigate("/HomePage");
@@ -17,21 +25,32 @@ export default function ProgressPage() {
 
   // Load saved progress on mount
   useEffect(() => {
+    console.log("Loading progress...");
     const saved = loadProgress();
+    console.log("Loaded data:", saved);
     if (saved) {
       setCompleted(saved.completed);
       setXp(saved.xp);
+      console.log("Set completed:", saved.completed, "Set XP:", saved.xp);
     }
+    isInitialMount.current = false;
   }, []);
 
   // Save progress whenever it changes
   useEffect(() => {
+    console.log("Save effect triggered. isInitialMount:", isInitialMount.current);
+    if (isInitialMount.current) {
+      console.log("Skipping save - initial mount");
+      return;
+    }
+    console.log("Saving progress:", { completed, xp });
     saveProgress({ completed, xp });
   }, [completed, xp]);
 
   const handleComplete = (id) => {
-    if (completed.includes(id)) return; // already completed
+    if (completed.includes(id)) return;
     const mission = missions.find((m) => m.id === id);
+    console.log("Completing mission:", mission);
     setCompleted([...completed, id]);
     setXp(xp + mission.points);
   };
@@ -45,8 +64,8 @@ export default function ProgressPage() {
         <BadgeDisplay xp={xp} />
         <ProgressTree xp={xp} />
 
-          <button onClick={handleHome} style={{ padding: "8px 14px", marginTop: "20px" }}>
-            Home
+        <button onClick={handleHome} style={{ padding: "8px 14px", marginTop: "20px" }}>
+          Home
         </button>
       </header>
 
