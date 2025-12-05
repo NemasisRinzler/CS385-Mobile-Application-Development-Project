@@ -6,6 +6,10 @@ import HomePage from "./app/HomePage";
 import ProgressPage from "./app/ProgressPage";
 import AccountPage from "./app/AccountPage";
 
+/* Notes for Chris:
+BrowserRouter, Routes, Route, and Navigate are what allow us to go between different pages/components in the app.
+The app structure is similar to a website, where each Route corresponds to a different "page" in the app.
+*/
 export default function App() {
   // java Main method equivilent - back end of display logic
 
