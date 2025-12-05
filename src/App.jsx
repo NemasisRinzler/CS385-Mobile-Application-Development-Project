@@ -26,7 +26,13 @@ export default function App() {
           <Route path="/LoginPage" element={<LoginPage setUser={setUser} />} />
 
           {/* Progress Page */}
-          <Route path="/ProgressPage" element={<ProgressPage user={user} />} />
+          <Route path="/ProgressPage" element={
+            user ? (
+              <ProgressPage user={user} />
+            ) : (
+              <Navigate to="/LoginPage" />
+            )
+          } />
 
           {/* Account Page */}
           <Route path="/AccountPage" element={

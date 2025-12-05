@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 import MissionCard from "../components/MissionCard";
 import BadgeDisplay from "../components/BadgeDisplay";
 import ProgressTree from "../components/ProgressTree";
 import { missions } from "../stores/missions";
 import { saveProgress, loadProgress } from "../stores/storage";
 
-export default function ProgressPage() {  // ProgressPage component
+export default function ProgressPage({ user }) {  // ProgressPage component
   const [completed, setCompleted] = useState(() => {
     const saved = loadProgress();
     return saved ? saved.completed : [];
@@ -18,6 +19,13 @@ export default function ProgressPage() {  // ProgressPage component
   });
   const navigate = useNavigate(); //navigate hook
   const isInitialMount = useRef(true);  // Ref to track initial mount
+
+  // Redirect to login if user is not authenticated
+  useEffect(() => {
+    if (!user) {
+      navigate("/LoginPage");
+    }
+  }, [user, navigate]);
 
   const handleHome = () => {
     navigate("/HomePage");
@@ -56,9 +64,10 @@ export default function ProgressPage() {  // ProgressPage component
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 flex flex-col gap-4">
+    <>
+      <Header />
+      <div className="max-w-lg mx-auto p-6 flex flex-col gap-4">
       <header className="text-center">
-        <h1 className="text-2xl font-bold text-green-700">🌱 EcoQuest Lite+</h1>
         <p className="text-gray-600 text-sm">Complete missions and earn XP!</p>
         <p className="mt-2 font-semibold text-green-600">XP: {xp}</p>
         <BadgeDisplay xp={xp} />
@@ -77,6 +86,7 @@ export default function ProgressPage() {  // ProgressPage component
           onComplete={handleComplete}
         />
       ))}
-    </div>
+      </div>
+    </>
   );
 }

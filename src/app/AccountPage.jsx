@@ -1,11 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 import BadgeDisplay from "../components/BadgeDisplay";
 import { loadProgress } from "../stores/storage";
 
 export default function AccountPage({ user }) {
     const [xp, setXp] = useState(0);
     const navigate = useNavigate();
+
+    // Redirect to login if user is not authenticated
+    useEffect(() => {
+        if (!user) {
+            navigate("/LoginPage");
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         const saved = loadProgress();
@@ -21,34 +29,36 @@ export default function AccountPage({ user }) {
     };
 
     return (
-    <div className="max-w-lg mx-auto p-6 flex flex-col gap-4">
+    <>
+      <Header />
+      <div className="max-w-lg mx-auto p-6 flex flex-col gap-4">
       <header className="text-center">
-        <h1 className="text-2xl font-bold text-green-700">👤 Account Details</h1>
+        <h1 className="text-2xl font-bold text-green-700">👤 Account Hub: {user}</h1>
       </header>
 
       <div className="bg-white rounded-lg shadow p-6 space-y-4">
         {/* Username */}
         <div className="flex justify-between items-center border-b pb-3">
-          <span className="text-gray-600">Username</span>
+          <span className="text-gray-600">Username: </span>
           <span className="font-semibold">{user}</span>
         </div>
 
         {/* Level */}
         <div className="flex justify-between items-center border-b pb-3">
-          <span className="text-gray-600">Level</span>
-          <span className="font-semibold text-green-600">Level {level}</span>
+          <span className="text-gray-600">Level: </span>
+          <span className="font-semibold text-green-600">{level}</span>
         </div>
 
         {/* XP */}
         <div className="flex justify-between items-center border-b pb-3">
-          <span className="text-gray-600">Total XP</span>
-          <span className="font-semibold text-green-600">{xp} XP</span>
+          <span className="text-gray-600">Total XP: </span>
+          <span className="font-semibold text-green-600">{xp}</span>
         </div>
 
         {/* Progress to next level */}
         <div className="border-b pb-3">
           <div className="flex justify-between text-sm text-gray-600 mb-1">
-            <span>Progress to Level {level + 1}</span>
+            <span>Progress to Next Level: {level + 1}</span>
             <span>{xp % 50} / 50 XP</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -71,6 +81,7 @@ export default function AccountPage({ user }) {
       >
         Back to Home
       </button>
-    </div>
+      </div>
+    </>
   );
 }

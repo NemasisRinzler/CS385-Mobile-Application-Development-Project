@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { accountData } from ".././stores/AccountData.js"; // Account Dummy data in Accounts.js
+import Header from "../components/Header";
 
 export default function LoginPage({ setUser }) {
   // java Main method equivilent
@@ -28,6 +29,8 @@ export default function LoginPage({ setUser }) {
 
   return (
     // JSX Responsible for displaying things to screen
+    <>
+      <Header />
     <div
       style={{
         maxWidth: "300px",
@@ -65,5 +68,6 @@ export default function LoginPage({ setUser }) {
 
       {message && <p style={{ marginTop: "15px" }}>{message}</p>}
     </div>
+    </>
   );
 }
