@@ -1,3 +1,5 @@
+/* Dummy data for missions, later we need to turn these into a separate "missions" table in the supabase Database */
+
 export const missions = [
   {
     id: 1,

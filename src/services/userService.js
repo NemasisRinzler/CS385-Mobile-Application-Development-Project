@@ -1,3 +1,10 @@
+/*
+Oh god this one is brutal man.
+Anyways I guess this is for fetching and uploading users progress data (xp and completed missions)
+
+Go check out storage.js to see next notes
+*/
+
 import { supabase } from '../config/supabase';
 
 export async function getProgress() {

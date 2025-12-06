@@ -1,8 +1,20 @@
+/* Notes for Chris:
+Aight, idk what supabase is doing here. This is a new file I got off Claude Sonnet 4.5
+This syntax is smelly, I know this page handles login, registration, logout by comparing inputs with
+data from the "users" table on the Supabase database.
+
+Go check out userService.js to see next notes
+*/
+
 import { supabase } from '../config/supabase';
 
 export async function login(username, password) {
   try {
-    // Supabase uses email, so we'll use username@ecoquest.app format
+    /* "Supabase uses email, so we'll use username@ecoquest.app format" - Claude Sonnet 4.5
+    For reference tho, I have turned off email verification on the supabase backend,
+    this means we can get away with using usernames instead of emails for logins and
+    registrations. Idk this code could probs be less specific to emails from the get go without
+    tinkering with supabase settings but whatever. */
     const email = `${username}@ecoquest.app`;
     
     const { data, error } = await supabase.auth.signInWithPassword({

@@ -1,3 +1,7 @@
+/*
+Thank you Chris for this magnificient little bugger
+*/
+
 const badges = [
   { name: "Gold", min: 101, emoji: "🏆", label: "Sustainability Champion" },
   { name: "Silver", min: 51, emoji: "🌿", label: "Green Guardian" },

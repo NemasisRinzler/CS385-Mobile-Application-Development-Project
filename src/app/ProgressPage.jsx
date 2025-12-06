@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import MissionCard from "../components/MissionCard";
 import BadgeDisplay from "../components/BadgeDisplay";
 import ProgressTree from "../components/ProgressTree";
-import { missions } from "../stores/missions";
+import { missions } from "../stores/missions"; // We eventually need to set up missions as parts of a seperate "missions" table in the supabase Database
 import { getProgress, saveProgress } from "../services/userService";
 
 export default function ProgressPage({ user }) {

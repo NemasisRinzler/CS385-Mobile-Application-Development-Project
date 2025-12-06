@@ -1,3 +1,17 @@
+/* Notes for Chris:
+Aight, genuinly idk what supabase is doing here:
+
+Each function takes an object called token for auth, and does fetch calls to these endpoints.
+The responses are expected to be JSON objects with specific fields.
+
+the API_BASE is set to the supabase project URl.
+From there, it calls two endpoints:
+- /user/progress : to get and save user progress
+- /user/profile : to get user profile info like username and xp
+
+Go see AccountPage.jsx once your done here and the goose chase will be over.
+*/
+
 const API_BASE = "https://neynsjohdechnkjlureu.supabase.co";
 
 export async function getProgress(token) {

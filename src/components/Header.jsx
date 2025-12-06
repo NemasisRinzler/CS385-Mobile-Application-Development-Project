@@ -1,3 +1,10 @@
+/*
+My proudest creation, the header just displays the homepage , logout, progress, and account buttons.
+Its supposed to have a sticky effect when scrolling down the page. Like, the header stays at the top 
+of the screen when you scroll down. But that feature is broken for some reason, we need to fix that later.
+Anyways, we can just import this to any page we want a header on every page and itl work.
+*/
+
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -18,7 +25,7 @@ export default function Header() {
 
   return (
     <>
-      {/* Logo section - always at the top */}
+      {/* Logo section - always at the top: Logo is currently a button with a green emoji on it, not ideal */}
       <div className="bg-green-700 text-white py-4 px-4">
         <button 
           onClick={() => navigate("/HomePage")}
