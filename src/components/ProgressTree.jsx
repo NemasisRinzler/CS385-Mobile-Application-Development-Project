@@ -7,8 +7,8 @@ export default function ProgressTree({ xp }) {
   const emoji = { seedling: "🌱", sapling: "🌿", tree: "🌳" }[stage];
   const text = {
     seedling: "Keep going — your tree is sprouting!",
-    sapling: "Nice! Your tree is growing 🌿",
-    tree: "Amazing! Your tree is flourishing 🌳",
+    sapling: "Nice! Your tree is growing!",
+    tree: "Amazing! Your tree is flourishing!",
   }[stage];
 
   return (

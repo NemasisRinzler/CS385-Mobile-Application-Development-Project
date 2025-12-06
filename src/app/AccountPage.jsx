@@ -47,23 +47,23 @@ export default function AccountPage({ user }) { // We pass in the user prop to i
 
         <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <div className="flex justify-between items-center border-b pb-3">
-            <span className="text-gray-600">Username</span>
+            <span className="text-gray-600">Username </span>
             <span className="font-semibold">{user}</span>
           </div>
 
           <div className="flex justify-between items-center border-b pb-3">
-            <span className="text-gray-600">Level</span>
-            <span className="font-semibold text-green-600">Level {level}</span>
+            <span className="text-gray-600">Level </span>
+            <span className="font-semibold text-green-600">{level}</span>
           </div>
 
           <div className="flex justify-between items-center border-b pb-3">
-            <span className="text-gray-600">Total XP</span>
-            <span className="font-semibold text-green-600">{xp} XP</span>
+            <span className="text-gray-600">Total XP: </span>
+            <span className="font-semibold text-green-600">{xp}</span>
           </div>
 
           <div className="border-b pb-3">
             <div className="flex justify-between text-sm text-gray-600 mb-1">
-              <span>Progress to Level {level + 1}</span>
+              <span>Progress to Level: {level + 1}</span>
               <span>{xp % 50} / 50 XP</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">

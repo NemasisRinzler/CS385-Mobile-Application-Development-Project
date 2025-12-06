@@ -16,9 +16,8 @@ export default function BadgeDisplay({ xp }) {
     <div className="flex items-center gap-3 p-4 bg-white rounded-lg shadow">
       <div className="text-4xl">{badge.emoji}</div>
       <div>
-        <div className="text-sm text-gray-500">Badge</div>
+        <div className="text-sm text-gray-500">Badge:</div>
         <div className="font-semibold">{badge.label}</div>
-        <div className="text-xs text-gray-400">XP: {xp}</div>
       </div>
     </div>
   );

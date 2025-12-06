@@ -38,9 +38,12 @@ export default function Header() {
         </button>
       </div>
 
+      {/* Placeholder to prevent content jump when nav becomes fixed */}
+      {isSticky && <div className="h-[52px]"></div>}
+
       {/* Navigation header - becomes sticky when scrolling */}
       <header 
-        className={`bg-green-700 text-white shadow-md transition-all ${
+        className={`bg-green-700 text-white shadow-md transition-all w-full ${
           isSticky ? "fixed top-0 left-0 right-0 z-50" : "relative"
         }`}
       >
@@ -52,10 +55,10 @@ export default function Header() {
             Home
           </button>
           <button
-            onClick={() => navigate("/ProgressPage")}
+            onClick={() => navigate("/MissionsPage")}
             className="px-4 py-2 rounded hover:bg-green-600 transition"
           >
-            Progress
+            Missions
           </button>
           <button
             onClick={() => navigate("/AccountPage")}

@@ -7,7 +7,7 @@ import ProgressTree from "../components/ProgressTree";
 import { missions } from "../stores/missions"; // We eventually need to set up missions as parts of a seperate "missions" table in the supabase Database
 import { getProgress, saveProgress } from "../services/userService";
 
-export default function ProgressPage({ user }) {
+export default function MissionsPage({ user }) {
   const [completed, setCompleted] = useState([]);
   const [xp, setXp] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -62,9 +62,15 @@ export default function ProgressPage({ user }) {
         <header className="text-center">
           <p className="text-gray-600 text-sm">Complete missions and earn XP!</p>
           <p className="mt-2 font-semibold text-green-600">XP: {xp}</p>
+          &nbsp;
           <BadgeDisplay xp={xp} />
+          &nbsp;
           <ProgressTree xp={xp} />
+          &nbsp;
         </header>
+
+        <p className="text-lg font-bold text-green-700">Available Missions:</p>
+        &nbsp;
 
         {missions.map((mission) => (
           <MissionCard

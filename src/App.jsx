@@ -5,7 +5,7 @@ Sup, welcome to the programe, ima try show you how all this works, take a look a
 -> The header also needs have the logo button be an image, not just a button with an emoji on it
 - The username@ecoquest.app format for logins and registrations is kinda restrictive, we should probs change the auth system to allow for just usernames.
 - The missions data is currently hardcoded in the stores/missions.js file, we need to set up a missions table in the supabase database and load it from there
-- The index.html file needs a proper favicon instead of the default one, i.e it needs our ecoquest logo to show up in the browser tab.
+- We need a proper logo, maybe AI assisted if you want, just make sure its green and eco friendly looking and we need it in the following formats, .png, .svg, and .ico for favicons and website use
 - The styling is kinda basic right now, we can improve it later with better CSS and maybe some animations if possible.
 
 Anyways, All pages are connected to eachother via these routes defined in App.jsx
@@ -21,7 +21,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./app/LoginPage";
 import HomePage from "./app/HomePage";
-import ProgressPage from "./app/ProgressPage";
+import MissionsPage from "./app/MissionsPage";
 import AccountPage from "./app/AccountPage";
 
 export default function App() {
@@ -44,9 +44,9 @@ export default function App() {
           <Route path="/LoginPage" element={<LoginPage setUser={setUser} />} />
 
           {/* Progress Page */}
-          <Route path="/ProgressPage" element={
+          <Route path="/MissionsPage" element={
             user ? (
-              <ProgressPage user={user} />
+              <MissionsPage user={user} />
             ) : (
               <Navigate to="/LoginPage" />
             )

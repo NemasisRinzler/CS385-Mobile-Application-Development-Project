@@ -9,7 +9,7 @@ export const missions = [
   },
   {
     id: 2,
-    title: "Cycle or walk to campus",
+    title: "Cycle or walk to your destination",
     points: 20,
     category: "Transport",
   },
@@ -21,4 +21,8 @@ export const missions = [
     category: "Community",
   },
   { id: 5, title: "Eat a vegetarian meal today", points: 10, category: "Food" },
+  { id: 6, title: "Take public transport today", points: 5, category: "Transport" },
+  { id: 7, title: "Cycle or walk to your destination", points: 15, category: "Transport" },
+  { id: 8, title: "Take out the trash", points: 5, category: "Waste" },
+  { id: 9, title: "Tend to the garden!", points: 10, category: "Environment" }, 
 ];

@@ -24,6 +24,7 @@ export default function MissionCard({ mission, completed, onComplete }) {
           </button>
         )}
       </div>
+      &nbsp;
     </div>
   );
 }
