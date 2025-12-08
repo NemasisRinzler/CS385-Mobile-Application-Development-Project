@@ -1,6 +1,17 @@
 import { supabase } from '../config/supabase';
 
-export async function getAllMissions() {
+let missionsCache = null;
+let cacheTimestamp = null;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+export async function getAllMissions(forceRefresh = false) {
+  const now = Date.now();
+  
+  // Return cached missions if valid
+  if (!forceRefresh && missionsCache && cacheTimestamp && (now - cacheTimestamp < CACHE_DURATION)) {
+    return missionsCache;
+  }
+
   try {
     const { data, error } = await supabase
       .from('missions')
@@ -9,26 +20,12 @@ export async function getAllMissions() {
 
     if (error) throw error;
 
-    return data || [];
+    missionsCache = data || [];
+    cacheTimestamp = now;
+    
+    return missionsCache;
   } catch (error) {
     console.error('Get missions error:', error);
-    return [];
-  }
-}
-
-export async function getMissionById(id) {
-  try {
-    const { data, error } = await supabase
-      .from('missions')
-      .select('*')
-      .eq('id', id)
-      .single();
-
-    if (error) throw error;
-
-    return data;
-  } catch (error) {
-    console.error('Get mission error:', error);
-    return null;
+    return missionsCache || []; // Return cached data if fetch fails
   }
 }

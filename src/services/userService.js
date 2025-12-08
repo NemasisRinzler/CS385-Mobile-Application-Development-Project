@@ -42,6 +42,8 @@ export async function saveProgress(progressData) {
         xp: progressData.xp,
         completed: progressData.completed,
         updated_at: new Date().toISOString(),
+      }, {
+        onConflict: 'user_id'
       });
 
     if (error) throw error;

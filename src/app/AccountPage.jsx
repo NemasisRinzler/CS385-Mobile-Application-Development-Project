@@ -5,10 +5,12 @@ Then secondly, we load the user's profile information such as their XP and displ
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";  // We import useNavigate to allow navigation between pages
+import { useAuth } from "../contexts/AuthContext";
 import Header from "../components/Header"; // We import bigman header component
 import BadgeDisplay from "../components/BadgeDisplay"; // We import CHAD badge display component
 
-export default function AccountPage({ user, xp }) { // We pass in user and xp props from App.jsx
+export default function AccountPage() {
+  const { user, xp } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => { // We ask if the user is logged in,
@@ -30,7 +32,7 @@ export default function AccountPage({ user, xp }) { // We pass in user and xp pr
         <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <div className="flex justify-between items-center border-b pb-3">
             <span className="text-gray-600">Username </span>
-            <span className="font-semibold">{user}</span>
+            <span className="font-semibold">{user?.username}</span>
           </div>
 
           <div className="flex justify-between items-center border-b pb-3">

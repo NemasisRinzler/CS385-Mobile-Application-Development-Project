@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import Header from "../components/Header";
 import MissionCard from "../components/MissionCard";
 import BadgeDisplay from "../components/BadgeDisplay";
@@ -7,7 +8,8 @@ import ProgressTree from "../components/ProgressTree";
 import { getAllMissions } from "../services/missionService";
 import { getProgress, saveProgress } from "../services/userService";
 
-export default function MissionsPage({ user, xp, setXp }) {
+export default function MissionsPage() {
+  const { user, xp, setXp } = useAuth();
   const [missions, setMissions] = useState([]);
   const [completed, setCompleted] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -52,14 +54,27 @@ export default function MissionsPage({ user, xp, setXp }) {
     saveData();
   }, [completed, xp, loading]);
 
-  const handleComplete = (id) => {
+  const handleComplete = async (id) => {
     if (completed.includes(id)) return;
     
     const mission = missions.find((m) => m.id === id);
     if (!mission) return;
 
-    setCompleted([...completed, id]);
-    setXp(xp + mission.points);
+    // Optimistic update - update UI immediately
+    const newCompleted = [...completed, id];
+    const newXp = xp + mission.points;
+    setCompleted(newCompleted);
+    setXp(newXp);
+
+    // Save to backend using saveProgress (simpler approach)
+    const result = await saveProgress({ completed: newCompleted, xp: newXp });
+    
+    if (!result) {
+      // Rollback on error
+      setCompleted(completed);
+      setXp(xp);
+      console.error('Failed to save progress');
+    }
   };
 
   if (loading) {

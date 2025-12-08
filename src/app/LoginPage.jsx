@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login, register } from "../services/authService";
 
-export default function LoginPage({ setUser }) {
+export default function LoginPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,8 +18,6 @@ export default function LoginPage({ setUser }) {
 
     if (result && result.token) {
       setMessage("Login Successful!");
-      setUser(result.user.username);
-      localStorage.setItem("user", result.user.username);
       navigate("/HomePage");
     } else {
       setMessage("Invalid username or password.");
@@ -42,8 +40,6 @@ export default function LoginPage({ setUser }) {
 
     if (result && result.token) {
       setMessage("Registration Successful!");
-      setUser(result.user.username);
-      localStorage.setItem("user", result.user.username);
       navigate("/HomePage");
     } else {
       setMessage("Registration failed. Username may already exist.");
