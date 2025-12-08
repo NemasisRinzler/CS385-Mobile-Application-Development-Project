@@ -1,0 +1,30 @@
+:root{
+  --brand-500: #22c55e;
+  --brand-700: #15803d;
+  --muted: #6b7280;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --radius: 0.5rem;
+}
+
+/* small helper for sticky header shadow transition */
+.header-sticky {
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+.header-sticky.is-fixed {
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
+  transform: translateY(0);
+}
+
+/* progress bar helper if you want a custom look */
+.progress-track {
+  background: #e6f3ea;
+  border-radius: 9999px;
+  height: 8px;
+}
+.progress-fill {
+  background: var(--brand-500);
+  height: 8px;
+  border-radius: 9999px;
+  transition: width 300ms ease;
+}

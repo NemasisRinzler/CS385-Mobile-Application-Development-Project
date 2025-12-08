@@ -34,51 +34,86 @@ export default function AccountPage({ user }) { // We pass in the user prop to i
   const level = Math.floor(xp / 1000) + 1; // FYI This takes user XP and converts it to a level locally, this means that "levels" so to speak, are not stored in the Database but are calculated on the fly based on XP.
 
   if (loading) { // If we are still loading the profile data, display loading message
-    return <div>Loading...</div>;
+    return (
+      <>
+        <Header />
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-greenbrand-600 mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-300">Loading account...</p>
+          </div>
+        </div>
+      </>
+    );
   }
 
   return (
     <>
-      <Header /> {/*HAHAHA MY HEADER */}
-      <div className="max-w-lg mx-auto p-6 flex flex-col gap-4">
-        <header className="text-center">
-          <h1 className="text-2xl font-bold text-green-700">👤 Account Details</h1>
-        </header>
+      <Header />
+      <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-greenbrand-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 right-10 w-96 h-96 bg-greenbrand-200/20 rounded-full blur-3xl dark:bg-greenbrand-900/20"></div>
+          <div className="absolute bottom-0 left-10 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl dark:bg-blue-900/20"></div>
+        </div>
 
-        <div className="bg-white rounded-lg shadow p-6 space-y-4">
-          <div className="flex justify-between items-center border-b pb-3">
-            <span className="text-gray-600">Username </span>
-            <span className="font-semibold">{user}</span>
-          </div>
-
-          <div className="flex justify-between items-center border-b pb-3">
-            <span className="text-gray-600">Level </span>
-            <span className="font-semibold text-green-600">{level}</span>
-          </div>
-
-          <div className="flex justify-between items-center border-b pb-3">
-            <span className="text-gray-600">Total XP: </span>
-            <span className="font-semibold text-green-600">{xp}</span>
-          </div>
-
-          <div className="border-b pb-3">
-            <div className="flex justify-between text-sm text-gray-600 mb-1">
-              <span>Progress to Level: {level + 1}</span>
-              <span>{xp % 50} / 50 XP</span>
+        <div className="relative py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-greenbrand-500 to-greenbrand-700 text-white shadow-lg mb-6">
+                <span className="text-4xl">👤</span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-gray-100">Account Details</h1>
+              <p className="mt-2 text-gray-600 dark:text-gray-300">View your progress and achievements</p>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div
-                className="bg-green-600 h-2 rounded-full transition-all"
-                style={{ width: `${((xp % 50) / 50) * 100}%` }}
-              ></div>
-            </div>
-          </div>
 
-          <div className="pt-2">
-            <BadgeDisplay xp={xp} /> {/* Absolute beast BadgeDisplay component */}
+            {/* Main content card */}
+            <div className="backdrop-blur-xl bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-2xl p-8 sm:p-12 border border-white/20 dark:border-gray-700/50">
+              {/* Stats Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12 pb-12 border-b border-gray-200/50 dark:border-gray-700/50">
+                {/* Username */}
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Username</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{user}</p>
+                </div>
+
+                {/* Level */}
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Level</p>
+                  <p className="text-2xl font-bold text-greenbrand-600">Level {level}</p>
+                </div>
+
+                {/* Total XP */}
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Total XP</p>
+                  <p className="text-2xl font-bold text-blue-600">{xp}</p>
+                </div>
+              </div>
+
+              {/* Progress Section */}
+              <div className="mb-12 pb-12 border-b border-gray-200/50 dark:border-gray-700/50">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Progress to Level {level + 1}</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+                    <span>{xp % 50} / 50 XP</span>
+                    <span>{Math.round(((xp % 50) / 50) * 100)}%</span>
+                  </div>
+                  <div className="progress-track h-3">
+                    <div className="progress-fill h-3" style={{ width: `${((xp % 50) / 50) * 100}%` }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Badge Section */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Current Badge</h3>
+                <BadgeDisplay xp={xp} />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }

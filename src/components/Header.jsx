@@ -25,53 +25,61 @@ export default function Header() {
 
   return (
     <>
-      {/* Logo section - always at the top: Logo is currently a button with a green emoji on it, not ideal */}
-      <div className="bg-green-700 text-white py-4 px-4">
-        <button 
-          onClick={() => navigate("/HomePage")}
-          className="flex items-center gap-3 hover:opacity-80 transition"
-        >
-          <div className="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center text-3xl shadow-lg">
-            🌱
-          </div>
-          <span className="text-8xl font-bold">EcoQuest</span>
-        </button>
+      {/* Top logo block (only shown at top) */}
+      <div className="eco-header text-greenbrand-700 py-3 px-4">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => navigate('/HomePage')}
+            className="flex items-center gap-3 hover:opacity-90 transition"
+            aria-label="Go to Home"
+          >
+            <div className="w-10 h-10 bg-greenbrand-500 rounded-md flex items-center justify-center text-xl text-white shadow">
+              🌱
+            </div>
+            <span className="text-2xl font-bold text-greenbrand-700">EcoQuest</span>
+          </button>
+        </div>
       </div>
 
       {/* Placeholder to prevent content jump when nav becomes fixed */}
-      {isSticky && <div className="h-[52px]"></div>}
+      {isSticky && <div className="h-14"></div>}
 
       {/* Navigation header - becomes sticky when scrolling */}
-      <header 
-        className={`bg-green-700 text-white shadow-md transition-all w-full ${
-          isSticky ? "fixed top-0 left-0 right-0 z-50" : "relative"
-        }`}
+      <header
+        className={`bg-white eco-header shadow-sm transition-all w-full ${isSticky ? 'fixed top-0 left-0 right-0 z-50' : 'relative'}`}
       >
-        <nav className="px-4 py-3 flex gap-2">
-          <button
-            onClick={() => navigate("/HomePage")}
-            className="px-4 py-2 rounded hover:bg-green-600 transition"
-          >
-            Home
-          </button>
-          <button
-            onClick={() => navigate("/MissionsPage")}
-            className="px-4 py-2 rounded hover:bg-green-600 transition"
-          >
-            Missions
-          </button>
-          <button
-            onClick={() => navigate("/AccountPage")}
-            className="px-4 py-2 rounded hover:bg-green-600 transition"
-          >
-            Account
-          </button>
-          <button
-            onClick={() => navigate("/LoginPage")}
-            className="px-4 py-2 rounded hover:bg-green-600 transition"
-          >
-            Logout
-          </button>
+        <nav className="px-4 py-2 flex items-center gap-2">
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => navigate('/HomePage')}
+                className="px-3 py-1 rounded hover:bg-greenbrand-50 transition text-sm"
+              >
+                Home
+              </button>
+              <button
+                onClick={() => navigate('/MissionsPage')}
+                className="px-3 py-1 rounded hover:bg-greenbrand-50 transition text-sm"
+              >
+                Progress
+              </button>
+              <button
+                onClick={() => navigate('/AccountPage')}
+                className="px-3 py-1 rounded hover:bg-greenbrand-50 transition text-sm"
+              >
+                Account
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <button
+              onClick={() => navigate('/LoginPage')}
+              className="px-3 py-1 rounded bg-greenbrand-500 text-white hover:bg-greenbrand-700 transition text-sm"
+            >
+              Logout
+            </button>
+          </div>
         </nav>
       </header>
     </>
