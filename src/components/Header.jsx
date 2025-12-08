@@ -11,6 +11,9 @@ import { useState, useEffect } from "react";
 export default function Header() {
   const navigate = useNavigate();
   const [isSticky, setIsSticky] = useState(false);
+  const handleProgress = () => {
+  navigate("/MissionsPage");
+};
 
   useEffect(() => {
     const handleScroll = () => {

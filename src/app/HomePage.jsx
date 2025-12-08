@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { logout } from "../services/authService";
 
-export default function HomePage({ user, setUser }) {
+export default function HomePage({ user, setUser, xp }) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -18,7 +18,13 @@ export default function HomePage({ user, setUser }) {
     <>
       <Header />
       <div style={{ textAlign: "center", marginTop: "50px", fontFamily: "sans-serif" }}>
-        <h1>Welcome, {user}! This is your homepage.</h1>
+        <h1>Welcome, {user}!</h1>
+        <p style={{ fontSize: "20px", color: "#16a34a", fontWeight: "600", marginTop: "20px" }}>
+          Total XP: {xp}
+        </p>
+        <p style={{ fontSize: "16px", color: "#6b7280", marginTop: "10px" }}>
+          Level: {Math.floor(xp / 1000) + 1}
+        </p>
       </div>
     </>
   );
