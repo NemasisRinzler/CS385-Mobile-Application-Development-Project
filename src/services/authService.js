@@ -25,11 +25,31 @@ export async function login(username, password) {
     if (error) throw error;
 
     // Get user profile
-    const { data: profile } = await supabase
+    const { data: profile, error: profileError } = await supabase
       .from('users')
       .select('username')
       .eq('id', data.user.id)
       .single();
+
+    // If no profile exists, create it
+    if (profileError || !profile) {
+      await supabase
+        .from('users')
+        .insert([{ id: data.user.id, username }]);
+      
+      // Also initialize progress if it doesn't exist
+      const { data: existingProgress } = await supabase
+        .from('user_progress')
+        .select('user_id')
+        .eq('user_id', data.user.id)
+        .single();
+      
+      if (!existingProgress) {
+        await supabase
+          .from('user_progress')
+          .insert([{ user_id: data.user.id, xp: 0, completed: [] }]);
+      }
+    }
 
     return {
       token: data.session.access_token,

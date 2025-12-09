@@ -15,15 +15,30 @@ export function AuthProvider({ children }) {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (session?.user) {
-        const { data: profile } = await supabase
-          .from('users')
-          .select('username')
-          .eq('id', session.user.id)
-          .single();
+        // Retry logic to wait for user profile creation
+        let profile = null;
+        let retries = 0;
+        while (!profile && retries < 5) {
+          const { data } = await supabase
+            .from('users')
+            .select('username')
+            .eq('id', session.user.id)
+            .single();
+          
+          if (data?.username) {
+            profile = data;
+            break;
+          }
+          
+          retries++;
+          if (retries < 5) {
+            await new Promise(resolve => setTimeout(resolve, 200)); // Wait 200ms before retry
+          }
+        }
         
         setUser({
           id: session.user.id,
-          username: profile?.username,
+          username: profile?.username || session.user.email?.split('@')[0] || 'User',
         });
 
         const { data: progress } = await supabase
@@ -44,15 +59,28 @@ export function AuthProvider({ children }) {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
-        const { data: profile } = await supabase
-          .from('users')
-          .select('username')
-          .eq('id', session.user.id)
-          .single();
+        // Retry logic to wait for user profile creation
+        let profile = null;
+        let retries = 0;
+        while (!profile && retries < 5) {
+          const { data } = await supabase
+            .from('users')
+            .select('username')
+            .eq('id', session.user.id)
+            .single();
+          
+          if (data?.username) {
+            profile = data;
+            break;
+          }
+          
+          retries++;
+          await new Promise(resolve => setTimeout(resolve, 200)); // Wait 200ms before retry
+        }
         
         setUser({
           id: session.user.id,
-          username: profile?.username,
+          username: profile?.username || session.user.email?.split('@')[0] || 'User',
         });
 
         const { data: progress } = await supabase

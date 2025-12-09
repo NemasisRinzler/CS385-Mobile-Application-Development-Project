@@ -1,19 +1,13 @@
 /* Notes for Chris:
-Sup, welcome to the programe, ima try show you how all this works, take a look around theres a good few things that need work such as:
 
+TO DO:
 - The header component that should stick to the top of the screen when scrolling down, but for some reason it aint working
 -> The header also needs have the logo button be an image, not just a button with an emoji on it
-- The username@ecoquest.app format for logins and registrations is kinda restrictive, we should probs change the auth system to allow for just usernames.
-- The missions data is currently hardcoded in the stores/missions.js file, we need to set up a missions table in the supabase database and load it from there
 - We need a proper logo, maybe AI assisted if you want, just make sure its green and eco friendly looking and we need it in the following formats, .png, .svg, and .ico for favicons and website use
 - The styling is kinda basic right now, we can improve it later with better CSS and maybe some animations if possible.
 
-Anyways, All pages are connected to eachother via these routes defined in App.jsx
-BrowserRouter, Routes, Route, and Navigate are what allow us to go between different pages/components in the app.
-A route has to be defined inside of a <Routes> block, and each route has a "path" and an "element".
-Path is the URL thatl show in the browser bar, the element is the component that gets rendered when we go to that path.
-
-Go to the supabase.js file to see next notes
+- Login system doesnt have email verification yet, we can add that later if we have time.
+- App currently 
 */
 
 import './App.css';
@@ -25,7 +19,7 @@ import MissionsPage from "./app/MissionsPage";
 import AccountPage from "./app/AccountPage";
 
 export default function App() {
-  const { user, loading } = useAuth();
+  const { user, loading } = useAuth();  // We get the user and loading state from the AuthContext,
 
   if (loading) {
     return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading...</div>;
