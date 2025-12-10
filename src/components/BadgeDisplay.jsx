@@ -1,24 +1,50 @@
-/*
-Thank you Chris for this magnificient little bugger
-*/
+import React from "react";
 
-const badges = [
-  { name: "Gold", min: 101, emoji: "🏆", label: "Sustainability Champion" },
-  { name: "Silver", min: 51, emoji: "🌿", label: "Green Guardian" },
-  { name: "Bronze", min: 0, emoji: "🌱", label: "Beginner Eco Hero" },
+const BADGES = [
+  {
+    id: "first_mission",
+    title: "First Mission",
+    description: "Complete your first mission",
+    xpRequired: 0,
+  },
+  {
+    id: "green_guru",
+    title: "Green Guru",
+    description: "Reach 100 XP",
+    xpRequired: 100,
+  },
+  {
+    id: "eco_master",
+    title: "Eco Master",
+    description: "Reach 500 XP",
+    xpRequired: 500,
+  },
 ];
 
-export default function BadgeDisplay({ xp }) {
-  // find the highest badge that fits current XP
-  const badge = badges.find((b) => xp >= b.min);
+const BadgeDisplay = ({ xp, completedMissions }) => {
+  const earnedBadges = BADGES.filter(
+    (b) =>
+      xp >= b.xpRequired ||
+      (b.id === "first_mission" && completedMissions.length > 0)
+  ).map((b) => b.id);
 
   return (
-    <div className="flex items-center gap-3 p-4 bg-white rounded-lg shadow">
-      <div className="text-4xl">{badge.emoji}</div>
-      <div>
-        <div className="text-sm text-gray-500">Badge:</div>
-        <div className="font-semibold">{badge.label}</div>
-      </div>
+    <div className="flex flex-wrap gap-4 mt-4">
+      {BADGES.map((badge) => (
+        <div
+          key={badge.id}
+          className={`badge p-4 border border-cyan-400 rounded-lg w-32 text-center ${
+            earnedBadges.includes(badge.id)
+              ? "bg-gray-800 text-cyan-400 shadow-lg"
+              : ""
+          }`}
+        >
+          <h4 className="font-bold">{badge.title}</h4>
+          <p className="text-sm">{badge.description}</p>
+        </div>
+      ))}
     </div>
   );
-}
+};
+
+export default BadgeDisplay;

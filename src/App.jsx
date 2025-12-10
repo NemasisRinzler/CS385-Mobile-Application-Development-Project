@@ -1,50 +1,34 @@
-/* Notes for Chris:
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-TO DO:
-- The header component that should stick to the top of the screen when scrolling down, but for some reason it aint working
--> The header also needs have the logo button be an image, not just a button with an emoji on it
-- We need a proper logo, maybe AI assisted if you want, just make sure its green and eco friendly looking and we need it in the following formats, .png, .svg, and .ico for favicons and website use
-- The styling is kinda basic right now, we can improve it later with better CSS and maybe some animations if possible.
+import { AuthProvider } from "./context/AuthContext.jsx";
+import { MissionsProvider } from "./context/MissionsContext.jsx";
+import { UserProgressProvider } from "./context/UserProgressContext.jsx";
 
-- Login system doesnt have email verification yet, we can add that later if we have time.
-- App currently 
-*/
+import NavigationBar from "./components/NavigationBar.jsx";
+import HomePage from "./app/HomePage.jsx";
+import ProfilePage from "./app/ProfilePage.jsx";
+import MissionsPage from "./app/MissionsPage.jsx";
+import LoginPage from "./app/LoginPage.jsx";
 
-import './App.css';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "./contexts/AuthContext";
-import LoginPage from "./app/LoginPage";
-import HomePage from "./app/HomePage";
-import MissionsPage from "./app/MissionsPage";
-import AccountPage from "./app/AccountPage";
-
-export default function App() {
-  const { user, loading } = useAuth();  // We get the user and loading state from the AuthContext,
-
-  if (loading) {
-    return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading...</div>;
-  }
-
+function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/LoginPage" />} />
-        <Route path="/LoginPage" element={<LoginPage />} />
-        
-        <Route path="/MissionsPage" element={
-          user ? <MissionsPage /> : <Navigate to="/LoginPage" />
-        } />
-        
-        <Route path="/AccountPage" element={
-          user ? <AccountPage /> : <Navigate to="/LoginPage" />
-        } />
-        
-        <Route path="/HomePage" element={
-          user ? <HomePage /> : <Navigate to="/LoginPage" />
-        } />
-        
-        <Route path="*" element={<Navigate to="/LoginPage" />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <UserProgressProvider>
+        <MissionsProvider>
+          <Router>
+            <NavigationBar />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/missions" element={<MissionsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/login" element={<LoginPage />} />
+            </Routes>
+          </Router>
+        </MissionsProvider>
+      </UserProgressProvider>
+    </AuthProvider>
   );
 }
+
+export default App;

@@ -1,29 +1,35 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import Header from "../components/Header";
-import { logout } from "../services/authService";
 
-export default function HomePage() {
-  const { user, xp } = useAuth();
+const HomePage = () => {
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/LoginPage");
-  };
-
   return (
-    <>
-      <Header />
-      <div style={{ textAlign: "center", marginTop: "50px", fontFamily: "sans-serif" }}>
-        <h1>Welcome, {user?.username}!</h1>
-        <p style={{ fontSize: "20px", color: "#16a34a", fontWeight: "600", marginTop: "20px" }}>
-          Total XP: {xp}
-        </p>
-        <p style={{ fontSize: "16px", color: "#6b7280", marginTop: "10px" }}>
-          Level: {Math.floor(xp / 1000) + 1}
-        </p>
+    <div className="flex flex-col items-center justify-center h-screen bg-[#121212] text-white">
+      <h1 className="text-4xl mb-8 text-cyan-400">Home</h1>
+
+      <div className="flex flex-row gap-x-6">
+        <button
+          className="button button-primary px-4 py-2 text-sm"
+          onClick={() => navigate("/missions")}
+        >
+          Missions
+        </button>
+        <button
+          className="button button-primary px-4 py-2 text-sm"
+          onClick={() => navigate("/account")}
+        >
+          Account
+        </button>
+        <button
+          className="button button-secondary px-4 py-2 text-sm"
+          onClick={() => navigate("/profile")}
+        >
+          Profile
+        </button>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default HomePage;
